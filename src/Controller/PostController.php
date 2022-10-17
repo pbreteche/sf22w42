@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Event\PostShowEvent;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Route('/post')]
 class PostController extends AbstractController
@@ -46,8 +48,9 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post): Response
+    public function show(Post $post, EventDispatcherInterface $dispatcher): Response
     {
+        $dispatcher->dispatch(new PostShowEvent($post));
         return $this->render('post/show.html.twig', [
             'post' => $post,
         ]);

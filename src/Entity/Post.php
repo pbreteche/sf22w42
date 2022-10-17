@@ -26,6 +26,9 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $state = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $viewCount = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Post
     public function setState(string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    public function getViewCount(): ?int
+    {
+        return $this->viewCount;
+    }
+
+    public function incViewCount(): self
+    {
+        $this->viewCount = $this->viewCount ? ++$this->viewCount : 1;
 
         return $this;
     }
