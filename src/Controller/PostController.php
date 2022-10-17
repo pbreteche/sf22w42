@@ -22,7 +22,7 @@ class PostController extends AbstractController
                 [],
                 ['createdAt' => 'DESC'],
                 self::POST_BY_PAGE,
-                self::POST_BY_PAGE * $request->get('page', 1)
+                self::POST_BY_PAGE * ($request->get('page', 1) - 1)
             ),
         ]);
     }
