@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Post index</h1>
 
+    <p>Page {{ app.request.attributes.get('_page') }}</p>
+
     <table class="table">
         <thead>
             <tr>

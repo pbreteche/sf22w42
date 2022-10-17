@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/post')]
 class PostController extends AbstractController
 {
-    private const POST_BY_PAGE = 10;
     #[Route('/', name: 'app_post_index', methods: ['GET'])]
     public function index(Request $request, PostRepository $postRepository): Response
     {
@@ -21,8 +20,8 @@ class PostController extends AbstractController
             'posts' => $postRepository->findBy(
                 [],
                 ['createdAt' => 'DESC'],
-                self::POST_BY_PAGE,
-                self::POST_BY_PAGE * ($request->get('page', 1) - 1)
+                $request->get('_limit'),
+                $request->get('_offset'),
             ),
         ]);
     }
