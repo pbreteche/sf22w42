@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\SimpleArrayType;
 
 class SpaceDelimitedType extends SimpleArrayType
 {
+    public const NAME = 'space_delimited';
+
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (!$value) {
@@ -29,7 +31,7 @@ class SpaceDelimitedType extends SimpleArrayType
 
     public function getName()
     {
-        return 'space_delimited';
+        return self::NAME;
     }
 
 }

@@ -13,7 +13,7 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('groupNames', SpaceDelimitedType::class)
+            ->add('groupNames')
         ;
     }
 
