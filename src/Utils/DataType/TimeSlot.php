@@ -10,21 +10,28 @@ class TimeSlot
 
     public function __construct()
     {
-        $this->date = new \DateTimeImmutable('today');
+        $this->date = new \DateTimeImmutable('now');
         $this->from = $this->date->modify('next hour');
         $this->to = $this->from->modify('next hour');
     }
 
-    public function setFrom(int $hour, int $minutes = 0, int $seconds = 0): self
+    public function setDate(\DateTimeImmutable $date): TimeSlot
     {
-        $this->from = $this->from->setTime($hour, $minutes, $seconds);
+        $this->date = $date;
 
         return $this;
     }
 
-    public function setTo(int $hour, int $minutes = 0, int $seconds = 0): self
+    public function setFrom(\DateTimeImmutable $from): self
     {
-        $this->to = $this->to->setTime($hour, $minutes, $seconds);
+        $this->from = $from;
+
+        return $this;
+    }
+
+    public function setTo(\DateTimeImmutable $to): self
+    {
+        $this->to = $to;
 
         return $this;
     }
