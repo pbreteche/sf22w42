@@ -16,7 +16,7 @@ class FormController extends AbstractController
     {
         $data = [
             'title' => '',
-            'time_slot' => new TimeSlot(),
+            'time_slot' => null,
 
         ];
 

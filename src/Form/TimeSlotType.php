@@ -19,13 +19,16 @@ class TimeSlotType extends AbstractType implements DataMapperInterface
     {
         $builder
             ->add('date', DateType::class, [
-                'input' => 'datetime_immutable'
+                'input' => 'datetime_immutable',
+                'widget' => 'single_text',
             ])
             ->add('from', TimeType::class, [
-                'input' => 'datetime_immutable'
+                'input' => 'datetime_immutable',
+                'widget' => 'single_text',
             ])
             ->add('to', TimeType::class, [
-                'input' => 'datetime_immutable'
+                'input' => 'datetime_immutable',
+                'widget' => 'single_text',
             ])
             ->setDataMapper($this);
     }
@@ -42,8 +45,8 @@ class TimeSlotType extends AbstractType implements DataMapperInterface
     }
 
     /**
-     * Finalement, ici le Mapper n'est pas nécessaire, car la structure du formulaire
-     * et la structure du modèle de données correspondent.
+     * Maintenant, le mapper par défaut ne trouverait les différents setters.
+     * On en crée un pour passer les données via le constructeur.
      */
     public function mapDataToForms(mixed $viewData, \Traversable $forms)
     {
@@ -66,10 +69,10 @@ class TimeSlotType extends AbstractType implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
 
-        $viewData = (new TimeSlot())
-            ->setDate($forms['date']->getData())
-            ->setFrom($forms['from']->getData())
-            ->setTo($forms['to']->getData())
-        ;
+        $viewData = new TimeSlot(
+            $forms['date']->getData(),
+            $forms['from']->getData(),
+            $forms['to']->getData()
+        );
     }
 }
