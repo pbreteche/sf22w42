@@ -39,4 +39,8 @@
     <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
 
     {{ include('post/_delete_form.html.twig') }}
+
+    {% for comment in comments %}
+        <p>{{ comment }}</p>
+    {% endfor %}
 {% endblock %}

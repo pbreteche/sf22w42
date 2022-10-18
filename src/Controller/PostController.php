@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Route('/post')]
@@ -48,11 +50,26 @@ class PostController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_post_show', methods: ['GET'])]
-    public function show(Post $post, EventDispatcherInterface $dispatcher): Response
-    {
+    public function show(
+        Post $post,
+        EventDispatcherInterface $dispatcher,
+        CacheInterface $pool
+    ): Response {
+        $comments = $pool->get('post.'.$post->getId().'.comments', function (ItemInterface $item) {
+            $item->expiresAfter(3600); // TTL = 01:00
+            // Stub : retrieve from web API
+            $data = [
+                'First comment',
+                'Another comment',
+            ];
+
+            return $data;
+        });
         $dispatcher->dispatch(new PostShowEvent($post));
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'comments' => $comments,
         ]);
     }
 
