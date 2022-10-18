@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Form\TimeSlotType;
 use App\Utils\DataType\TimeSlot;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +30,19 @@ class FormController extends AbstractController
         $form->handleRequest($request);
 
         return $this->renderForm('form/custom.html.twig', [
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/form/contact')]
+    public function contact(Request $request)
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+
+        $form->handleRequest($request);
+
+        return $this->renderForm('form/contact.html.twig', [
             'form' => $form,
         ]);
     }
