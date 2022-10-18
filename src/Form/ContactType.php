@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,16 +13,7 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('groupNames')
-            ->get('groupNames')
-            ->addViewTransformer(new CallbackTransformer(
-                function ($groupsAsArray) {
-                    return implode(' ', $groupsAsArray);
-                },
-                function ($groupsAsString) {
-                    return explode(' ', $groupsAsString);
-                }
-            ))
+            ->add('groupNames', SpaceDelimitedType::class)
         ;
     }
 
