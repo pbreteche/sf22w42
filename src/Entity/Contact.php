@@ -3,7 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use App\Validator\AllowedDomain;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -14,6 +16,8 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email]
+    #[AllowedDomain(['domains' => ['dawan.fr', 'manymore.fr']])]
     private ?string $email = null;
 
     #[ORM\Column(type: 'space_delimited')]
