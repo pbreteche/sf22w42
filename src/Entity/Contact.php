@@ -40,6 +40,12 @@ class Contact
         return $this;
     }
 
+    #[Assert\EqualTo('dawan.fr')]
+    public function getEmailDomain()
+    {
+        return strstr($this->email, '@');
+    }
+
     public function getGroupNames(): array
     {
         return $this->groupNames;
