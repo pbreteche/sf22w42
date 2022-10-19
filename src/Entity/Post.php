@@ -23,11 +23,16 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $state = null;
+    #[ORM\Column(type: 'string', enumType: PostStateEnum::class)]
+    private ?PostStateEnum $state = PostStateEnum::draft;
 
     #[ORM\Column(nullable: true)]
     private ?int $viewCount = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -70,12 +75,12 @@ class Post
         return $this;
     }
 
-    public function getState(): ?string
+    public function getState(): ?PostStateEnum
     {
         return $this->state;
     }
 
-    public function setState(string $state): self
+    public function setState(PostStateEnum $state): self
     {
         $this->state = $state;
 

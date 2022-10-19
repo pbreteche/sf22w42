@@ -25,7 +25,7 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.body }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.state }}</td>
+                <td>{{ post.state.value }}</td>
                 <td>
                     <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
                     <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
