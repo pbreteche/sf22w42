@@ -1,0 +1,7 @@
+{% block space_delimited_widget %}
+{% if multiline %}
+    {{ block('textarea_widget') }}
+{% else %}
+    {{ block('form_widget') }}
+{% endif %}
+{% endblock %}

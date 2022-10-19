@@ -13,7 +13,9 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('groupNames')
+            ->add('groupNames', null, [
+                'delimiter' => "\n",
+            ])
         ;
     }
 
