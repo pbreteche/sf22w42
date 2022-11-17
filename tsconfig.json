@@ -1,0 +1,5 @@
+{
+  // Nécessaire afin de ne pas avoir de conflits avec les TS
+  // provenant des vendors
+  "include": ["assets/ts"]
+}
