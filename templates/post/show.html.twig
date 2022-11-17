@@ -5,8 +5,8 @@
 {% block body %}
     <h1>Post</h1>
 
-    <table class="table">
-        <tbody>
+    <table class="table" data-controller="collapse">
+        <thead data-action="click->collapse#toggle">
             <tr>
                 <th>Id</th>
                 <td>{{ post.id }}</td>
@@ -15,7 +15,9 @@
                 <th>Title</th>
                 <td>{{ post.title }}</td>
             </tr>
-            <tr>
+        </thead>
+        <tbody data-collapse-target="content">
+            <tr data-collapsable>
                 <th>Body</th>
                 <td>{{ post.body }}</td>
             </tr>
@@ -23,7 +25,7 @@
                 <th>CreatedAt</th>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
-            <tr>
+            <tr data-collapsable>
                 <th>State</th>
                 <td>{{ post.state.value }}</td>
             </tr>
