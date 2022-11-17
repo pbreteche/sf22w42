@@ -7,13 +7,27 @@ use PHPUnit\Framework\TestCase;
 
 class CalendarTest extends TestCase
 {
-    public function testDaysBetween()
+    /**
+     * @dataProvider providesDaysBetween
+     */
+    public function testDaysBetween($d1String, $d2String, $expected)
     {
-        $d1 = new \DateTimeImmutable('2022-11-14');
-        $d2 = new \DateTimeImmutable('2022-11-18');
+        $d1 = new \DateTimeImmutable($d1String);
+        $d2 = new \DateTimeImmutable($d2String);
 
         $calendar = new Calendar();
 
-        $this->assertEquals(5, $calendar->daysBetween($d1, $d2), 'There should be 5 days between 2022-11-14 and 2022-11-18');
+        $this->assertEquals($expected, $calendar->daysBetween($d1, $d2),
+            sprintf('There should be %d days between %s and %s', $expected, $d1String, $d2String)
+        );
+    }
+
+    public function providesDaysBetween(): array
+    {
+        return [
+            'standard usage' => ['2022-11-14', '2022-11-18', 5],
+            'symmetric' => ['2022-11-18', '2022-11-14', 5],
+            'same day usage' => ['2022-11-18', '2022-11-18', 1],
+        ];
     }
 }
