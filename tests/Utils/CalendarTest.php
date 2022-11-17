@@ -22,12 +22,10 @@ class CalendarTest extends TestCase
         );
     }
 
-    public function providesDaysBetween(): array
+    public function providesDaysBetween(): iterable
     {
-        return [
-            'standard usage' => ['2022-11-14', '2022-11-18', 5],
-            'symmetric' => ['2022-11-18', '2022-11-14', 5],
-            'same day usage' => ['2022-11-18', '2022-11-18', 1],
-        ];
+        yield 'standard usage' => ['2022-11-14', '2022-11-18', 5];
+        yield 'symmetric' => ['2022-11-18', '2022-11-14', 5];
+        yield 'same day usage' => ['2022-11-18', '2022-11-18', 1];
     }
 }
