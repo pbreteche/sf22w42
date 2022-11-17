@@ -10,6 +10,7 @@ use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -52,10 +53,14 @@ class PostController extends AbstractController
     public function show(
         Post $post,
         EventDispatcherInterface $dispatcher,
-        PostCommentLoader $loader
+        PostCommentLoader $loader,
+        LockFactory $lockFactory
     ): Response {
         $comments = $loader->loadForPost($post);
+        $lock = $lockFactory->createLock('post');
+        $lock->acquire(true);
         $dispatcher->dispatch(new PostShowEvent($post));
+        $lock->release();
 
         return $this->render('post/show.html.twig', [
             'post' => $post,
