@@ -24,8 +24,10 @@ class CalendarTest extends TestCase
 
     public function providesDaysBetween(): iterable
     {
-        yield 'standard usage' => ['2022-11-14', '2022-11-18', 5];
-        yield 'symmetric' => ['2022-11-18', '2022-11-14', 5];
-        yield 'same day usage' => ['2022-11-18', '2022-11-18', 1];
+        $fh = fopen(__DIR__.'/CalendarData.csv', 'r');
+        while ($line = fgetcsv($fh)) {
+            yield array_shift($line) => $line;
+        }
+        fclose($fh);
     }
 }
