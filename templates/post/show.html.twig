@@ -41,4 +41,10 @@
     {% for comment in comments %}
         <p>{{ comment }}</p>
     {% endfor %}
+    <div id="demo"></div>
+    <script>
+        fetch('{{ path('app_xhr_helloworld') }}')
+            .then(response => response.text())
+            .then(html => document.getElementById('demo').innerHTML = html)
+    </script>
 {% endblock %}

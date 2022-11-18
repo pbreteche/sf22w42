@@ -12,5 +12,6 @@ class PostControllerTest extends PantherTestCase
 
         $crawler = $client->request('GET', '/post/1');
         $this->assertPageTitleContains('Premier article');
+        $this->assertSelectorWillContain('#demo', 'Hello world');
     }
 }
