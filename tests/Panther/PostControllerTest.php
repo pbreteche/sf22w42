@@ -12,6 +12,9 @@ class PostControllerTest extends PantherTestCase
 
         $crawler = $client->request('GET', '/post/1');
         $this->assertPageTitleContains('Premier article');
+        $btn = $crawler->selectButton('Load');
+        $btn->getLocationOnScreenOnceScrolledIntoView();
+        $btn->click();
         $this->assertSelectorWillContain('#demo', 'Hello world');
     }
 }
