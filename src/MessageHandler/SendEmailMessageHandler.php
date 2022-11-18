@@ -16,5 +16,7 @@ class SendEmailMessageHandler implements MessageHandlerInterface
     {
         /** @var Email $email */
         $email = $message->getMessage();
+
+        return 'success';
     }
 }

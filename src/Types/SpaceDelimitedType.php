@@ -9,7 +9,7 @@ class SpaceDelimitedType extends SimpleArrayType
 {
     public const NAME = 'space_delimited';
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (!$value) {
             return null;
@@ -18,7 +18,7 @@ class SpaceDelimitedType extends SimpleArrayType
         return implode(' ', $value);
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): array
     {
         if (!$value) {
             return [];
