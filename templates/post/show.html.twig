@@ -3,17 +3,13 @@
 {% block title %}Post{% endblock %}
 
 {% block body %}
-    <h1>Post</h1>
+    <h1>{{ post.title }}</h1>
 
     <table class="table" data-controller="collapse">
         <thead data-action="click->collapse#toggle">
             <tr>
                 <th>Id</th>
                 <td>{{ post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ post.title }}</td>
             </tr>
         </thead>
         <tbody data-collapse-target="content">
